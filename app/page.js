@@ -37,6 +37,12 @@ export default function Home() {
     if (ws) {
       const payload = {
         method: "connect",
+        clientId: "123456",
+        userId: "Shubham Kakkar",
+        totalRuns: 1001,
+        userId: "123456",
+        email: "webkoala1998@gmail.com",
+        name: "Shubham Kakkar",
       };
       ws.send(JSON.stringify(payload));
     }
