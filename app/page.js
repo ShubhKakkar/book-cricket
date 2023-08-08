@@ -3,15 +3,16 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import { useEffect, useState } from 'react';
 import useWebSocket from "@/hooks/useWebSocket"; 
+import FriendsModal from '@/components/FriendsModal';
 
 export default function Home() {
   const ws = useWebSocket();
+  const [openFriendList, setOpenFriendList] = useState(false);
   useEffect(() => {
     if (!ws) return;
     ws.onmessage = async(message) => {
       // Handle WebSocket message
       const response = await JSON.parse(message.data);
-      console.log(response);
       if(response.method === "connect") {
         localStorage.setItem("clientId", response?.clientId);
         console.log("Client Id is set successfully " + response?.clientId);
@@ -25,6 +26,7 @@ export default function Home() {
         let gameId = response?.game?.gameId;
         localStorage.setItem("gameId", gameId);
         console.log("game Id is set successfully " + gameId);
+        setOpenFriendList(true);
       }
     };
 
@@ -69,9 +71,13 @@ export default function Home() {
       </div>
       <div className={styles.title}>Book Cricket</div>
       <div className={styles.action_buttons}>
-        <button className={styles.button} onClick={handleCreateClientAndJoin}>VS</button>
+        <button className={styles.button} onClick={handleCreateClientAndJoin}>
+          VS
+        </button>
         <p className={styles.button_note}>Play against friends</p>
       </div>
+      {/* Friend Invitation */}
+      {openFriendList && <FriendsModal setOpenFriendList={setOpenFriendList} />}
     </main>
   );
 }

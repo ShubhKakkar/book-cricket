@@ -1,0 +1,81 @@
+.wrapper {
+    background-color: #252525D9;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+}
+
+.wrapper_inner {
+    height: 550px;
+    width: 550px;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 30px 40px;
+}
+
+.close {
+    display: block;
+    font-family: Inter;
+    font-weight: 500;
+    text-align: right;
+    cursor: pointer;
+}
+
+.input_name {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.clients_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.client_single {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.list_count {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    border: 1px solid #000;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    display: grid;
+    place-items: center;
+}
+
+.client_name {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: bold;
+}
+
+.client_email {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.send_invite {
+    background-color: #2361BE;
+    padding: 8px;
+    border-radius: 6px;
+    color: #fff;
+    border: 0px;
+    cursor: pointer;
+}
