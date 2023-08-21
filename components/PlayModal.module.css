@@ -1,0 +1,45 @@
+.wrapper {
+    background-color: #252525D9;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.play__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0px 100px;
+    color: #fafafa;
+}
+
+.player_box>h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.player_box>p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.player_box>button {
+    padding: 10px 12px;
+    background: transparent;
+    border: 1px solid #fafafa;
+    color: #fafafa;
+    cursor: pointer;
+    transition: 300ms ease-in;
+    font-weight: 500;
+}
+
+.player_box>button:hover {
+    background: #fafafa;
+    color: #010101;
+}

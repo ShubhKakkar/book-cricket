@@ -1,28 +1,27 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import useWebSocket from "@/hooks/useWebSocket";
 import styles from "./FriendsModal.module.css";
 
-const FriendsModal = ({ setOpenFriendList }) => {
+const FriendsModal = ({ setOpenFriendList, setPlayModal, activePlayers }) => {
   const ws = useWebSocket();
-  const [activePlayers, setActivePlayers] = useState([]);
 
   useEffect(() => {
     if (!ws) return;
 
-    ws.onopen = () => {
-      console.log("WebSocket connected!");
-      const payload = {
-        method: "active-players",
-      };
-      ws.send(JSON.stringify(payload));
-    };
-
     ws.onmessage = async (message) => {
       const response = await JSON.parse(message.data);
-      console.log(response);
-      if (response.method === "active-players") {
-        const livePlayers = response?.game?.livePlayers;
-        setActivePlayers(livePlayers);
+      if(response.method === "invite-result") {
+        const res = response?.result;
+        console.log(result);
+        // TODO: Show result to user in modal?
+        if(res === "Invite accepted") {
+          setOpenFriendList(false);
+          setPlayModal(true);
+        }
+        else {
+          return;
+        }
       }
     };
 
@@ -37,6 +36,27 @@ const FriendsModal = ({ setOpenFriendList }) => {
       ws.onopen = null;
     };
   }, [ws]);
+
+
+  const sendPlayerInvite = async(client_id, userId) => {
+    if(localStorage.getItem("gameId")) {
+      const invitePayload = {
+        method: "invite",
+        client_id: client_id,
+        user_id: userId,
+        gameId: localStorage.getItem("gameId"),
+      }
+      try {
+        ws.send(JSON.stringify(invitePayload));
+      }
+      catch(err) {
+        console.log(err);
+      }
+    }
+    else {
+      return;
+    }
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -63,7 +83,9 @@ const FriendsModal = ({ setOpenFriendList }) => {
                     <p className={styles.list_count}>{index + 1}</p>
                     <h1 className={styles.client_name}>{client.name}</h1>
                     <h2 className={styles.client_email}>{client.email}</h2>
-                    <button className={styles.send_invite}>Send Invite</button>
+                    <button className={styles.send_invite} onClick={() => {
+                      sendPlayerInvite(client.client_id, localStorage.getItem("clientId"));
+                    }}>Send Invite</button>
                   </div>
                 </div>
               );
